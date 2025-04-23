@@ -1,0 +1,23 @@
+{
+    "paper_details": {
+      "title": "Quantitative Structure-Activity Relationship (QSAR) modelling of the activity of anti-colorectal cancer agents featuring quantum chemical predictors and interaction terms",
+      "authors": [
+        {
+          "name_author1": "Han Ngoc Bao Nguyen",
+          "author1_details": "St. Andrew’s Junior College, 5 Sorby Adams Drive, Singapore 357691, Singapore"
+        },
+        {
+          "name_author2": "Michael Yudistira Patuwo",
+          "author2_details": "National University of Singapore, Department of Chemistry, Block S8 Level 3, 3 Science Drive 3, Singapore 117543, Singapore"
+        }
+      ],
+      "publisher": "Elsevier B.V.",
+      "date_of_publication": "10 March 2023"
+    },
+    "Abstract": "A Quantitative Structure-Activity Relationship (QSAR) study was performed to 1) predict the activity of new compounds as anti-colorectal cancer agents and 2) select chemical predictors that accurately model relationships between molecular structures and bioactivity against colon cancer cell lines. Logistic regression was used to obtain coefficients for the QSAR classification model. Quantum chemical predictors were found to be significant predictors, such as the total electronic energy (ET), charge of the most positive atom (Qmax) and electrophilicity (ω), thus validating the need to consider them besides those routinely used in anti-colorectal cancer agents QSAR. The model selected simple and significant predictors that can be obtained directly using information from gaseous-state Gaussian optimisation at HF/3-21G in a vacuum, with no external calculation software, providing an inexpensive yet robust QSAR model. In addition, two interaction terms were proven to be significant at 95 % confidence level, reiterating the importance of interaction between predictors that is not commonly seen in QSAR models.",
+    "Introduction": "Colorectal cancer (CRC) is the third most common type of cancer worldwide, besetting more than a million people every year. It is the second leading cause of death among various types of cancer. Surgery is only successful in CRC treatment in the early localised stage when it is limited within the wall of the colon. CRC has little response to radiation, making chemotherapy crucial. Drug discovery is complex, expensive, and time-consuming, thus computational methods like QSAR are employed to reduce costs and cycle time. QSAR relates molecular structures to activity using descriptors and statistical models. While widely used, few QSAR models use quantum chemical predictors, despite evidence supporting their utility. Hence, this study explores quantum chemical predictors and interaction terms to build a robust anti-CRC QSAR model.",
+    "Materials and methods": "The research involved dataset collection, predictor extraction using Gaussian 16, PCA for dimensionality reduction, logistic regression modelling with and without interaction terms, and validation through McFadden’s R² and sensitivity measures. The dataset included 1122 compounds (563 active, 559 inactive). Gaussian 16 was used to optimise structures and extract 43 predictors. PCA reduced these to 20. Interaction terms (190) were tested for statistical significance and added to logistic models to assess improvements in log-likelihood.",
+    "Results and discussion": "Principal Component Analysis (PCA) of 20 predictors revealed that PC1 was responsible for separation between active and inactive compounds. Predictors like ET, ω, Qmax, and molecular mass were important. Logistic regression with 12 significant terms (10 linear, 2 interactions) had high internal (McFadden’s R²: 0.96555) and external validation (accuracy: 85.30%). Leave-one-out cross-validation confirmed robustness (86.01% accuracy). Significant predictors included both structural and quantum chemical descriptors, proving the importance of incorporating both, and also interaction terms, in QSAR models.",
+    "Conclusion": "The proposed QSAR model effectively predicts anti-colorectal cancer activity with 85.30% test accuracy using 12 predictors (including 2 interaction terms). It demonstrates the relevance of structural and quantum chemical predictors without requiring external software. Positive coefficient descriptors help guide drug design. Interaction terms further improved model accuracy and highlighted the significance of combining predictors. This approach provides a cost-effective and robust screening method for novel anti-CRC compounds."
+  }
+  
