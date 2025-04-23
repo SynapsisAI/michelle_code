@@ -1,5 +1,66 @@
+# If cannot push to Github repository due to conflicts in SSH Keys, do:
+`ssh -T git@github-michelle`
+`git remote -v`
+# Important links to understand why it's so hard to find the structure in PDF
+- https://stackoverflow.com/questions/937808/how-to-extract-data-from-a-pdf-file-while-keeping-track-of-its-structure
+- https://stackoverflow.com/questions/22675690/if-identifying-text-structure-in-pdf-documents-is-so-difficult-how-do-pdf-reade/
+- Some suggested that we should convert PDF to markdown and work from there.
+- https://nanonets.com/blog/document-parsing/
+- Best PDF Parser for Academic Papers: https://www.reddit.com/r/Rag/comments/1ilxf1i/best_pdf_parser_for_academic_papers/
 
-- Direction to go:
+
+# Approaches
+1. Use LLamaParse, we have quite a decent Markdown version of pdf. Need to figure out a way to remoe all the unnecessary # headings in between the section text.
+- Can try to put the Markdown output as input of ChatGPT and ask chatgpt to produce output, but so far the output is bad, and using double LLM just increases work load.
+
+2. Use RAG approach by Thu Vu, but this approach is to break the pdf down into smaller chunks, and return only the relevant parts to answer a specific question. Why do we need to break down to chunks? If this approach does not work, do we cancel out all the RAG methods? In the Youtube video parsing 99% content of PDF he said RAG ony finds relevant information to answer an unstructured question, and will fall apart at parsing complex documents.
+    - If it's for a RAG, you don't need to parse them, you can just compute the embedding of the pages with Colpali https://huggingface.co/blog/manu/colpali (and like the other said Gemini does the job for text extraction)
+
+3. We can also explore the variety of options out there, from Reddit, Quora and Stack Overflow:
+- LLamaParse
+- science-parse: https://github.com/allenai/science-parse
+- Docling: https://github.com/docling-project/docling
+    + OCR support is also present.
+    + Integrates easily with LLM app / RAG frameworks.
+    + Inbuilt Hierarchical Chunking is also supported.    
+    + I tried this but it’s bad at parsing inline equations
+- GROBID: https://github.com/kermitt2/grobid -> Specialised for scientific research papers
+- science-parse: https://github.com/allenai/science-parse
+- Unstructured.io: can be run locally
+- TIKA Parser, It can run locally using a server link. Some say it's better than Unstructuredx
+- Nougat (hasn’t been updated in a while)
+- 
+---
+**Other less popular options**
+
+- PyMuPDF4llm: https://pymupdf.readthedocs.io/en/latest/pymupdf4llm/
+    + internal order and table markdown could be not as perfect in comparison to Docling. It has different heading levels
+- PDF files can be parsed with tabula-py, or tabula-java: https://aegis4048.github.io/parse-pdf-files-while-retaining-structure-with-tabula-py
+- PDFBox https://pdfbox.apache.org/ is a PDF parsing tool that you can use for extracting text and images on top of which you can define your custom rules for parsing.
+- Texify/marker:
+    + tries to convert pdfs into markdown and they convert math equations into latex in that markdown
+    + But the latex sometimes can be inaccurate. For that part, you can try different latex ocrs by passing the specific page with incorrect latex again to other tools.(This will depend on your usecase and how you create your pipeline.) 
+- poppler and surya ocr for parsing pdfs.
+- layoutlmv3
+- blip
+- Qwen 2.5 VL Instruct?
+    + converting each page to pngs
+    + then use Qwn
+    + I used Qwen 2 VL Instruct to parse financial academic papers using this method and the results were good enough to work with; I needed to implement another section in the pipeline to clean up the math equations into LaTeX
+- https://itextpdf.com/
+
+4. Use other LLM: Gemini flash 2.0. llama 3.3; but need to have the correct approach
+* think about what domain something is in. This will help the model understand the nuances that docling is struggling with.
+think about what it needs to get absolutely right (e.g inline equations, tables, etc).
+* Then, process 5 random documents to check painfully if the job is alright. If not, tune prompts, go again.
+* I'd generally do it at either a page level or if the doc is small enough, just at the doc level.
+* Quite similar to this, conceptually: https://generative-ai-newsroom.com/structured-outputs-making-llms-reliable-for-document-processing-c3b6b2baed36 Give it a read, and use the concepts around document processing here. I suspect you won't need it to the degree of the OCR stuff etc., but still good to know.
+* Try to iterate and get it right on a few documents before you turn it full throttle for your entire dataset!
+
+---
+***
+
+# Direction to go:
 1. Extract structured data from PDF: text, image, sections and title section. Need recognition from AI. Mutimodal RAG.
 2. Do a summary script.
 2. Extract text from image: to generate a description for image => Image+Video Selection Model.
